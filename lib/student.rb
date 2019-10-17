@@ -37,7 +37,7 @@ class Student
       LIMIT 1
     SQL
 
-    DB[:conn].execute(sql, name).map { |row| self.new_from_db(row) }.first
+    self.db_sql_rows_param(sql, name).first
   end
 
   def self.all_students_in_grade_9
@@ -96,6 +96,8 @@ class Student
   end
 
   private
+
+  # a couple of helpers to keep it DRY
 
   def self.db_sql_rows(sql)
     DB[:conn].execute(sql).map { |row| self.new_from_db(row) }
